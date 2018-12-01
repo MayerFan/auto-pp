@@ -1,0 +1,23 @@
+
+<table class="ui selectable unstackable inverted table">
+  <thead>
+    <tr>
+      <th>Version</th>
+      <th>Build</th>
+      <th>Info</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+
+    <% items.forEach(function(item){%>
+        <tr class="qrselect">
+          <td class="version"><%= item.version %></td>
+          <td class="build"><%= item.build %></td>
+          <td class="info"><%= item.info %></td>
+          <td class="date"><%= item.time %></td>
+        </tr>
+    <% }) %>
+    
+  </tbody>
+</table>

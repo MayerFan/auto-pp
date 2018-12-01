@@ -1,0 +1,15 @@
+
+<table class="ui very celled orange table">
+  <thead>
+    <tr>
+      <th>Project</th>
+    </tr>
+  </thead>
+  <tbody>
+      <% pros.forEach(function(pro){%>
+        <tr class="disabled" id="leftside">
+          <td data-select= <%= pro.selected %> ><%= pro.name %></td>
+        </tr>
+    <% }) %>
+  </tbody>
+</table>

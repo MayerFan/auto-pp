@@ -1,0 +1,19 @@
+{
+  "name": "package_platform",
+  "version": "1.0.0",
+  "description": "移动包管理平台",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "MayerF",
+  "license": "ISC",
+  "dependencies": {
+    "config-lite": "2.1.0",
+    "connect-multiparty": "2.2.0",
+    "ejs": "2.6.1",
+    "express": "4.16.4",
+    "mongodb": "3.1.9",
+    "plist": "3.0.1"
+  }
+}

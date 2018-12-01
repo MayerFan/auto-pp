@@ -1,0 +1,24 @@
+
+
+<div class="ui menu">
+    <div class="ui simple dropdown item">
+        <%= plats.selected %>
+        <i class="dropdown icon"></i>
+        <div class="menu">
+          <% plats.remain.forEach(function(plat){%>
+            <div class="item" id="nav-plat"><%= plat %></div>
+          <% }) %>
+        </div>
+    </div>
+    <div class="right menu">
+        <div class="item">
+          <div class="ui icon input">
+            <input type="text" placeholder="Search...">
+            <i class="search link icon"></i>
+          </div>
+        </div>
+        <a class="ui item">
+          Login
+        </a>
+    </div>
+</div>
