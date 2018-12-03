@@ -133,6 +133,7 @@ function findMax(table, condition, field, callback) {
     var result = null
 
     if (err) {
+      console.log('连接数据库失败')
       newErr = err
       callback(newErr, result)
       return
