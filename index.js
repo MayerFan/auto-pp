@@ -117,7 +117,7 @@ app.get(['/app/:platform', '/app/:platform/:project'], (req, res) => {
         'items': result.list, 
         'pros': result.project, 
         'plats': {'selected': selectedPlat, 'remain': remainPlats},
-        'ip': config.ip,
+        'ip': config.serverIp,
         'httpPort': httpPort,
         'httpsPort': httpsPort
       })
