@@ -28,10 +28,10 @@ const httpServer = http.createServer(app)
 const httpsServer = https.createServer(credentials, app)
 
 httpServer.listen(8001, () => {
-  console.log(`http server listening on port 80`)
+  console.log(`http server listening on port 8001`)
 })
 httpsServer.listen(8002, () => {
-  console.log(`https server listening on port 443`)
+  console.log(`https server listening on port 8002`)
 })
 
 // 设置存放模板文件的目录
