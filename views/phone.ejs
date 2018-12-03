@@ -18,7 +18,8 @@
                   <td data-label="Version"><%= item.version %></td>
                   <td data-label="Build"><%= item.build %></td>
                   <td data-label="Info"><%= item.info %></td>
-                  <td><a href="itms-services://?action=download-manifest&url=https://192.168.200.108:8002/files/58coin_<%= item.version %>_<%= item.build %>.plist">安装</a></td>
+                  <td><a href="itms-services://?action=download-manifest&url=https://<%= ip %>:<%= httpsPort %>/files/58coin_<%= item.version %>_<%= item.build %>.plist">
+                    安装</a></td>
                 </tr>
             <% }) %>
             
@@ -27,7 +28,7 @@
   </div>
 
   <div class="alertText" style="position:fixed; bottom:0px; background-color:darkkhaki">
-    <a href="http://192.168.200.108:8001/cer">
+    <a href="http://<%= ip %>:<%= httpsPort %>/cer">
       如果尚未安装自签名证书且提示无法连接服务器，请点击此处安装证书。证书安装完成后，在关于本机中信任此证书</a>
   </div>
 

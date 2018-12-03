@@ -4,6 +4,7 @@ const mongo = require('./mongo')
 const plist = require('plist')
 const fs = require('fs')
 const tool = require('./tool')
+const config = require('config-lite')(__dirname)
 
 // 查找内容
 function readInfo(plat, project, callback) {
@@ -81,11 +82,17 @@ function findList(table, project, callback) {
 // 生成plist文件
 function createPlist(lists) {
 
+  var ip = config.serverIp
+  var httpsPort = config.httpsPort
+  var httpPort = config.httpPort
+
+  var url = 'https://' + ip + ':' + httpsPort + '/58COIN_V2.6.7_20181019180777.ipa'
+
   const jsonPlate = {
     "items": [{
       "assets": [{
         "kind": "software-package",
-        "url": "https://192.168.200.108:8002/58COIN_V2.6.7_20181019180777.ipa"
+        "url": url
       }],
       "metadata": {
         "bundle-identifier": "com.58btc.tb",
@@ -96,7 +103,7 @@ function createPlist(lists) {
     }]
   }
 
-  const domain = 'http://192.168.200.108'
+  const domain = 'http://' + ip + ':' + httpPort
 
   const fileDir = './FileDir/plist/'
   // 先清空文件夹

@@ -12,7 +12,8 @@ jQuery(function(){
     var eventEle = event.currentTarget
     var version = $(eventEle).children('.version').text()
     var build = $(eventEle).children('.build').text()
-    var text = "itms-services://?action=download-manifest&url=https://192.168.3.77/files/58COIN_" + version + '_' + build + '.plist'
+    var hostname = location.hostname
+    var text = "itms-services://?action=download-manifest&url=https://" + hostname + ":8002/files/58COIN_" + version + '_' + build + '.plist'
     $('#code').qrcode({
       render: "canvas", //也可以替换为table
       width: 220,

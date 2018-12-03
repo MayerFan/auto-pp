@@ -27,11 +27,14 @@ const credentials = {
 const httpServer = http.createServer(app)
 const httpsServer = https.createServer(credentials, app)
 
-httpServer.listen(8001, () => {
-  console.log(`http server listening on port 8001`)
+const httpPort = config.httpPort
+const httpsPort = config.httpsPort
+
+httpServer.listen(httpPort, () => {
+  console.log(`http server listening on port ${httpPort}`)
 })
-httpsServer.listen(8002, () => {
-  console.log(`https server listening on port 8002`)
+httpsServer.listen(httpsPort, () => {
+  console.log(`https server listening on port ${httpsPort}`)
 })
 
 // 设置存放模板文件的目录
@@ -110,7 +113,14 @@ app.get(['/app/:platform', '/app/:platform/:project'], (req, res) => {
       if (tool.checkMobile(req)) {
         view = 'phone'
       }
-      res.render(view, {'items': result.list, 'pros': result.project, 'plats': {'selected': selectedPlat, 'remain': remainPlats}})
+      res.render(view, {
+        'items': result.list, 
+        'pros': result.project, 
+        'plats': {'selected': selectedPlat, 'remain': remainPlats},
+        'ip': config.ip,
+        'httpPort': httpPort,
+        'httpsPort': httpsPort
+      })
 
     } else {
       res.end(err)
