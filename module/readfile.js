@@ -85,7 +85,7 @@ function createPlist(lists) {
     "items": [{
       "assets": [{
         "kind": "software-package",
-        "url": "https://app.58btc.com/58COIN_V2.6.7_20181019180777.ipa"
+        "url": "https://192.168.200.108:8002/58COIN_V2.6.7_20181019180777.ipa"
       }],
       "metadata": {
         "bundle-identifier": "com.58btc.tb",
@@ -96,7 +96,7 @@ function createPlist(lists) {
     }]
   }
 
-  const domain = 'http://192.168.3.77'
+  const domain = 'http://192.168.200.108'
 
   const fileDir = './FileDir/plist/'
   // 先清空文件夹

@@ -27,10 +27,10 @@ const credentials = {
 const httpServer = http.createServer(app)
 const httpsServer = https.createServer(credentials, app)
 
-httpServer.listen(80, () => {
+httpServer.listen(8001, () => {
   console.log(`http server listening on port 80`)
 })
-httpsServer.listen(443, () => {
+httpsServer.listen(8002, () => {
   console.log(`https server listening on port 443`)
 })
 
