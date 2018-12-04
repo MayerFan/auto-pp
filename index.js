@@ -42,27 +42,86 @@ app.set('views', path.join(__dirname, 'views'))
 // 设置模板引擎
 app.set('view engine', 'ejs')
 
+//******************路由 */
 // 首页面
 app.get(['/', '/app'], (req, res) => {
   res.render('home', {'plats': config.plat})
 })
 
-// // 手机端页面(快捷展示)
-// app.get('/phone/:platform/(:project)?', (req, res) => {
-//   collectInfo(req.params.platform, req.params.project, (err, result) => {
-//     res.render('phone', {'items': result})
-//   })
-// })
+// 证书下载
+app.get('/cer', (req, res) => {
+  var cerPath = path.join(__dirname, 'cer/file.crt')
+
+  fs.stat(cerPath, (err, stats) => {
+    if (!err && stats.isFile()) {
+      res.writeHead(200, {
+        'Content-Type': 'application/x-x509-ca-cert'
+      });
+      fs.createReadStream(cerPath).pipe(res)
+    }
+  })
+})
+
+// 静态资源管理服务
+app.get('/public/:dir/:resource', (req, res) => {
+  staticFile(req, res)
+})
+
+// 文件上传(只接收ipa和apk文件)
+app.post('/upload', multipartMiddleware, (req, res) => {
+  saveFile(req, (err) => {
+    if (!err) {
+      res.end(`${req.files.file.name} upload success\n`)
+    } else {
+      res.end(err)
+    }
+  })
+})
+
+// 文件下载
+app.get('/files/:path', (req, res) => {
+
+  const fileName = req.params.path;
+  var platformDir = '' //平台路径
+  var fileFullPath = ''
+  var memitype = ''
+
+  //判断扩展名。区分iOS，android
+  const extName = path.extname(fileName)
+  if (extName === '.ipa') {
+    platformDir = './FileDir/iOS'
+    memitype = 'application/vnd.iphone'
+  } else if (extName === '.apk') {
+    platformDir = './FileDir/Android'
+  } else if (extName === '.plist') {
+    platformDir = './FileDir/plist'
+    memitype = 'application/x-plist'
+  }
+  fileFullPath = path.join(platformDir, fileName)
+
+  fs.stat(fileFullPath, (err, stats) => {
+    if (!err && stats.isFile()) {
+      res.writeHead(200, {
+        'Content-Type': memitype
+      });
+      fs.createReadStream(fileFullPath).pipe(res)
+    } else {
+      res.end('not found')
+    }
+  })
+
+})
+
 
  /**
   * 路由设计
   * /app 路径去掉 。 二维码动态处理
-  * 移动设备访问 简洁访问 ； /app/58coin
-  * pc端访问必须指定 平台 ： /app/ios/
+  * 移动设备访问 简洁访问 ； /58coin
+  * pc端访问必须指定 平台 ： /ios/
   */
 
 /// 主路由
-app.get(['/app/:platform', '/app/:platform/:project'], (req, res) => {
+app.get(['/:platform', '/:platform/:project'], (req, res) => {
 
   var plat = req.params.platform
   var project =  req.params.project
@@ -128,72 +187,3 @@ app.get(['/app/:platform', '/app/:platform/:project'], (req, res) => {
     
   })
 })
-
-// 静态资源管理服务
-app.get('/public/:dir/:resource', (req, res) => {
-  staticFile(req, res)
-})
-
-// 文件上传(只接收ipa和apk文件)
-app.post('/upload', multipartMiddleware, (req, res) => {
-  saveFile(req, (err) => {
-    if (!err) {
-      res.end(`${req.files.file.name} upload success\n`)
-    } else {
-      res.end(err)
-    }
-  })
-})
-
-// 文件下载
-app.get('/files/:path', (req, res) => {
-
-  const fileName = req.params.path;
-  var platformDir = '' //平台路径
-  var fileFullPath = ''
-  var memitype = ''
-
-  //判断扩展名。区分iOS，android
-  const extName = path.extname(fileName)
-  if (extName === '.ipa') {
-    platformDir = './FileDir/iOS'
-    memitype = 'application/vnd.iphone'
-  } else if (extName === '.apk') {
-    platformDir = './FileDir/Android'
-  } else if (extName === '.plist') {
-    platformDir = './FileDir/plist'
-    memitype = 'application/x-plist'
-  }
-  fileFullPath = path.join(platformDir, fileName)
-
-  fs.stat(fileFullPath, (err, stats) => {
-    if (!err && stats.isFile()) {
-      res.writeHead(200, {
-        'Content-Type': memitype
-      });
-      fs.createReadStream(fileFullPath).pipe(res)
-    } else {
-      res.end('not found')
-    }
-  })
-
-})
-
-// 证书下载
-app.get('/cer', (req, res) => {
-    
-  var cerPath = path.join(__dirname, 'cer/file.crt')
-
-  fs.stat(cerPath, (err, stats) => {
-    if (!err && stats.isFile()) {
-      res.writeHead(200, {
-        'Content-Type': 'application/x-x509-ca-cert'
-      });
-      fs.createReadStream(cerPath).pipe(res)
-    }
-  })
-})
-
-// app.listen(config.port, () => {
-//   console.log(`listening on port ${config.port}`)
-// })

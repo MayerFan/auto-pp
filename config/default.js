@@ -6,5 +6,5 @@ module.exports = {
   dbName    : 'test',
   plat      : ['iOS', 'Andriod'], //所支持的平台
   dbUrl     : 'mongodb://localhost:27017/',
-  serverIp  : '192.168.200.108'
+  serverIp  : '192.168.3.77'
 }

@@ -11,7 +11,7 @@
   <tbody>
 
     <% items.forEach(function(item){%>
-        <tr class="qrselect">
+        <tr data-port="<%= httpsPort %>" class="qrselect">
           <td class="version"><%= item.version %></td>
           <td class="build"><%= item.build %></td>
           <td class="info"><%= item.info %></td>

@@ -13,7 +13,8 @@ jQuery(function(){
     var version = $(eventEle).children('.version').text()
     var build = $(eventEle).children('.build').text()
     var hostname = location.hostname
-    var text = "itms-services://?action=download-manifest&url=https://" + hostname + ":8002/files/58COIN_" + version + '_' + build + '.plist'
+    var port = $(eventEle).data('port')
+    var text = "itms-services://?action=download-manifest&url=https://" + hostname + ":"+ port + "/files/58COIN_" + version + '_' + build + '.plist'
     $('#code').qrcode({
       render: "canvas", //也可以替换为table
       width: 220,
@@ -27,16 +28,16 @@ jQuery(function(){
   });
 
   $('.home_ios').on('click', () => {
-    window.location.href = '/app/ios/'
+    window.location.href = '/ios/'
   });
 
   $('.home_andriod').on('click', () => {
-    window.location.href = '/app/andriod/'
+    window.location.href = '/andriod/'
   });
 
   $('#nav-plat').on('click', (event)=> {
     var eventEle = event.currentTarget
     var text = $(eventEle).text()
-    window.location.href = '/app/' + text + '/'
+    window.location.href = '/' + text + '/'
   })
 })

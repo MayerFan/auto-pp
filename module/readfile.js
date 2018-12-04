@@ -116,7 +116,7 @@ function createPlist(lists) {
     // 更新json模板信息
     var url = domain + '/files/' + list.path
     jsonPlate.items[0].assets[0].url = url
-    jsonPlate.items[0].metadata["bundle-version"] = list.build
+    jsonPlate.items[0].metadata["bundle-version"] = list.version
     jsonPlate.items[0].metadata.title = list.name
 
     // 生成plist
